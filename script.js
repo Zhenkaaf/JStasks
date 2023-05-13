@@ -339,3 +339,78 @@ const firstUniqChar = (str) => {
 console.log('uniqStr1---', firstUniqChar(uniqStr1));
 console.log('uniqStr2---', firstUniqChar(uniqStr2));
 console.log('uniqStr3---', firstUniqChar(uniqStr3));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Эта задача middle уровня сложности на Leetcode.
+
+    По условиям задачи: необходимо посчитать количество островов в матрице. Островом считаются единицы (1), которые находятся друг рядом с другом по горизонтали и по вертикали. Водой считаются ячейки матрицы с нулями. 
+    
+    Для решения данной задачи мы используем с вами алгоритм DFS (depth first search). С его помощью мы решим данную задачу со сложностью O(m*n), где m — количество строк, а n — количество столбцов в матрице. */
+
+
+
+
+
+let grid1 = [
+  ['1', '1', '1', '1', '0'],
+  ['1', '1', '0', '1', '0'],
+  ['1', '1', '0', '0', '0'],
+  ['0', '0', '0', '0', '0']
+];
+let grid2 = [
+  ['1', '1', '0', '0', '0'],
+  ['1', '1', '0', '0', '0'],
+  ['0', '0', '1', '0', '0'],
+  ['0', '0', '0', '1', '1']
+];
+let grid3 = [
+  ['1', '0', '1', '0', '0']
+];
+let git  = (grid) => {
+  let counter = 0;
+  let rowsLength = grid.length;
+  let colsLength = grid[0].length;
+  if (rowsLength === 0) return 0;
+  console.log('rows', rowsLength);
+  console.log('cols', colsLength);
+
+  function markNeighbour(grid, row, column) {
+    grid[row][column] = 'X';
+    //check left neighbor
+    if (grid[row][column - 1] === '1') { markNeighbour(grid, row, column - 1) }
+    //check right neighbor
+    if (grid[row][column + 1] === '1') { markNeighbour(grid, row, column + 1) }
+    //check top neighbor
+    if (grid?.[row + 1]?.[column] === '1') { markNeighbour(grid, row + 1, column) }
+    //check ищеещь neighbor
+    if (grid?.[row - 1]?.[column] === '1') { markNeighbour(grid, row - 1, column) }
+    
+  }
+
+  for (let row = 0; row < rowsLength; row++) {
+    for (let column = 0; column < colsLength; column++) {
+      if (grid[row][column] === '1') {
+        counter++;
+        markNeighbour(grid, row, column);
+      }
+    }
+  }
+console.log(grid);
+
+  return counter;
+};
+console.log(numIslands(grid1));
+console.log(numIslands(grid2));
+console.log(numIslands(grid3));
